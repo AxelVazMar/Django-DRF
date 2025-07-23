@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from apps.users.models import User
-from apps.users.api.serializers import UserSerializer #,TestUserSerializer
+from apps.users.api.serializers import UserSerializer, TestUserSerializer
 
 
     # def get(self, request): # Creando la petición HTTP 'GET'
@@ -50,7 +50,7 @@ def user_detail_api_view(request, pk=None):
         
         # Modificando usuario especifico a través de su id
         elif request.method == 'PUT': 
-            user_serializer = UserSerializer(user,data=request.data)
+            user_serializer = TestUserSerializer(user,data=request.data)
 
             if user_serializer.is_valid():
                 user_serializer.save()

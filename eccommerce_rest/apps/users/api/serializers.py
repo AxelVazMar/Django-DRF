@@ -31,8 +31,8 @@ class TestUserSerializer(serializers.Serializer):
         if value == '':
             raise serializers.ValidationError('The user needs an email')
         
-        if self.context['name'] in value:
-            raise serializers.ValidationError('El email no puede contener el nombre')
+        # if self.context['name'] in value:
+        #     raise serializers.ValidationError('El email no puede contener el nombre')
 
         return value
     
@@ -48,3 +48,9 @@ class TestUserSerializer(serializers.Serializer):
         Method to create a user when the data is valid
         """
         return User.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name',instance.name)
+        instance.email = validated_data.get('email',instance.email)
+        instance.save()
+        return instance
