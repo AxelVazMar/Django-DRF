@@ -13,12 +13,13 @@ class UserAPIView(APIView):
 
         test_data = {
             'name':'axel',
-            'email':'axelvazmar@gmail.com'
+            'email':'vazmar@gmail.com'
         }
         
         test_user = TestUserSerializer(data = test_data,context = test_data)
 
         if test_user.is_valid():
+            test_user.save() # Saving the user in the DB
             print("Pasó validaciones")
         else:
             print(test_user.errors) # ".errors" mete los errores en las validaciones en un diccionario

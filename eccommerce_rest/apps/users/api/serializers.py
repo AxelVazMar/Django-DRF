@@ -37,5 +37,14 @@ class TestUserSerializer(serializers.Serializer):
         return value
     
     def validate(self, data):
+        """
+        Method to validate the data of a user
+        """
     
         return data
+    
+    def create(self, validated_data):
+        """
+        Method to create a user when the data is valid
+        """
+        return User.objects.create(**validated_data)
