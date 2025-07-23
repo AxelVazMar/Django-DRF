@@ -29,7 +29,7 @@ class TestUserSerializer(serializers.Serializer):
 
         # creting a custom validation for email field
         if value == '':
-            raise serializers.ValidationError('The user need a email')
+            raise serializers.ValidationError('The user needs an email')
         
         if self.context['name'] in value:
             raise serializers.ValidationError('El email no puede contener el nombre')
