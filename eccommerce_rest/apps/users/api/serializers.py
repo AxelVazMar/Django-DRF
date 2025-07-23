@@ -11,6 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TestUserSerializer(serializers.Serializer):
+    """
+    This serializer is for making customs validations
+    """
 
     name = serializers.CharField(max_length = 200)
     email = serializers.EmailField()
