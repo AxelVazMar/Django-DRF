@@ -28,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserListSerializer(serializers.ModelSerializer):
     """
-    Este serializador lista los Usuarios y les "da" una forma personalizada
+    Este serializador lista los Usuarios y les "da" una forma personalizada para mostrarlos
     """
 
     class Meta:
