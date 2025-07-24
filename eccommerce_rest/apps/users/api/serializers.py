@@ -10,52 +10,60 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-class TestUserSerializer(serializers.Serializer):
-    """
-    This serializer is for making customs validations
-    """
+    def to_representation(self, instance):
+        return {
+            "id":instance['id'],
+            "username":instance['username'],
+            "email":instance['email'],
+            "password":instance['password']
+        }
 
-    name = serializers.CharField(max_length = 200)
-    email = serializers.EmailField()
+# class TestUserSerializer(serializers.Serializer):
+#     """
+#     This serializer is for making customs validations
+#     """
 
-    # Los suiguientes métodos son pertenecientes a los serializers pero podemos sobreescrbirilos (como lo estamos haciendo) para que hagan cosas personalizadas
+#     name = serializers.CharField(max_length = 200)
+#     email = serializers.EmailField()
 
-    def validate_name(self, value):
+#     # Los suiguientes métodos son pertenecientes a los serializers pero podemos sobreescrbirilos (como lo estamos haciendo) para que hagan cosas personalizadas
 
-        # creating custom validation for name field
-        if 'dev' in value:
-            raise serializers.ValidationError("Error, a user with that name can't exists")
-        return value
+#     def validate_name(self, value):
+
+#         # creating custom validation for name field
+#         if 'dev' in value:
+#             raise serializers.ValidationError("Error, a user with that name can't exists")
+#         return value
     
-    def validate_email(self, value):
+#     def validate_email(self, value):
 
-        # creting a custom validation for email field
-        if value == '':
-            raise serializers.ValidationError('The user needs an email')
+#         # creting a custom validation for email field
+#         if value == '':
+#             raise serializers.ValidationError('The user needs an email')
         
-        # if self.context['name'] in value:
-        #     raise serializers.ValidationError('El email no puede contener el nombre')
+#         # if self.context['name'] in value:
+#         #     raise serializers.ValidationError('El email no puede contener el nombre')
 
-        return value
+#         return value
     
-    def validate(self, data):
-        """
-        Method to validate the data of a user
-        """
+#     def validate(self, data):
+#         """
+#         Method to validate the data of a user
+#         """
     
-        return data
+#         return data
     
-    def create(self, validated_data):
-        """
-        Method to create a user when the data is valid
-        """
-        return User.objects.create(**validated_data)
+#     def create(self, validated_data):
+#         """
+#         Method to create a user when the data is valid
+#         """
+#         return User.objects.create(**validated_data)
     
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name',instance.name)
-        instance.email = validated_data.get('email',instance.email)
-        instance.save() # <== este save es del modelo en este caso del modelo "User"
-        return instance
+#     def update(self, instance, validated_data):
+#         instance.name = validated_data.get('name',instance.name)
+#         instance.email = validated_data.get('email',instance.email)
+#         instance.save() # <== este save es del modelo en este caso del modelo "User"
+#         return instance
     
-    # def save(self):
-    #     print(self) 
+#      def save(self):
+#          print(self) 

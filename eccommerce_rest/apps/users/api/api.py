@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from apps.users.models import User
-from apps.users.api.serializers import UserSerializer, TestUserSerializer
+from apps.users.api.serializers import UserSerializer
 
 
     # def get(self, request): # Creando la petición HTTP 'GET'
@@ -18,7 +18,7 @@ def user_api_view(request):
     if request.method == 'GET':
 
         # Consulta/queryset para obtener todos los usuarios del modelo usuario
-        users = User.objects.all()
+        users = User.objects.all().values('id', 'username', 'email', 'password') # se optimiza la consulta ya que se trae solos valores especificados
         users_serializers = UserSerializer(users, many=True)
        
         return Response(users_serializers.data, status=status.HTTP_200_OK)
@@ -50,10 +50,10 @@ def user_detail_api_view(request, pk=None):
         
         # Modificando usuario especifico a través de su id
         elif request.method == 'PUT': 
-            user_serializer = TestUserSerializer(user,data=request.data)
+            user_serializer = UserSerializer(user,data=request.data)
 
             if user_serializer.is_valid():
-                user_serializer.save() # <== este save es del serializador, en este caso del serializador "TestUserSerializer"
+                user_serializer.save() # <== este save es del serializador, en este caso del serializador "UserSerializer"
                 return Response(user_serializer.data, status=status.HTTP_200_OK)
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
