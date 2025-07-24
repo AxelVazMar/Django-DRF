@@ -6,7 +6,7 @@ class BaseModel(models.Model):
     state = models.BooleanField('Estado', default=True)
     created_date = models.DateField('Fecha de Creación', auto_now=False, auto_now_add=True)
     modified_date = models.DateField('Fecha de Modificación', auto_now=True, auto_now_add=False)
-    delated_day = models.DateField('Fecha de Eliminación', auto_now=True, auto_now_add=False)
+    deleted_day = models.DateField('Fecha de Eliminación', auto_now=True, auto_now_add=False)
 
     class Meta:
 
