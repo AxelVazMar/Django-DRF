@@ -9,14 +9,14 @@ Serializadores generales para los campos generales de la BDD de la app "Producto
 class MeasureUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = MeasureUnit
-        exclude = ('state',)
+        fields = ['id', 'description']
 
 class CategoryProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryProduct
-        exclude = ('state',)
+        fields = ['id', 'description']
 
 class IndicatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryProduct
-        exclude = ('state',)
+        fields = ['id', 'description']
