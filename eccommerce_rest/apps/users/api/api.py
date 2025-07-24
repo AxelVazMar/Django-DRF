@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from apps.users.models import User
-from apps.users.api.serializers import UserSerializer
+from apps.users.api.serializers import UserSerializer, UserListSerializer
 
 
     # def get(self, request): # Creando la petición HTTP 'GET'
@@ -19,7 +19,7 @@ def user_api_view(request):
 
         # Consulta/queryset para obtener todos los usuarios del modelo usuario
         users = User.objects.all().values('id', 'username', 'email', 'password') # se optimiza la consulta ya que se trae solos valores especificados
-        users_serializers = UserSerializer(users, many=True)
+        users_serializers = UserListSerializer(users, many=True)
        
         return Response(users_serializers.data, status=status.HTTP_200_OK)
     
