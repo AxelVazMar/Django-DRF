@@ -18,6 +18,8 @@ class TestUserSerializer(serializers.Serializer):
     name = serializers.CharField(max_length = 200)
     email = serializers.EmailField()
 
+    # Los suiguientes métodos son pertenecientes a los serializers pero podemos sobreescrbirilos (como lo estamos haciendo) para que hagan cosas personalizadas
+
     def validate_name(self, value):
 
         # creating custom validation for name field
@@ -52,5 +54,8 @@ class TestUserSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name',instance.name)
         instance.email = validated_data.get('email',instance.email)
-        instance.save()
+        instance.save() # <== este save es del modelo en este caso del modelo "User"
         return instance
+    
+    # def save(self):
+    #     print(self) 

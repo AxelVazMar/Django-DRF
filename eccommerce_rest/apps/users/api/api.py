@@ -53,7 +53,7 @@ def user_detail_api_view(request, pk=None):
             user_serializer = TestUserSerializer(user,data=request.data)
 
             if user_serializer.is_valid():
-                user_serializer.save()
+                user_serializer.save() # <== este save es del serializador, en este caso del serializador "TestUserSerializer"
                 return Response(user_serializer.data, status=status.HTTP_200_OK)
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
