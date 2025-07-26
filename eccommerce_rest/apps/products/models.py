@@ -14,14 +14,14 @@ class MeasureUnit(BaseModel):
     
     @_history_user.setter
     def _history_user(self, value):
-        self.changed_by = value
-
-    def __str__(self):
-            return self.description    
+        self.changed_by = value    
     
     class Meta:
         verbose_name = 'Unidad de Medida'
         verbose_name_plural = 'Unidades de Medidas'
+    
+    def __str__(self):
+            return self.description
 
 class CategoryProduct(BaseModel):
     description = models.CharField('Descripción', max_length=50, unique=True, blank=False, null=False)
@@ -67,8 +67,8 @@ class Product(BaseModel):
     
     name = models.CharField('Nombre del Producto',max_length=150, unique=True, blank=False, null=False)
     description = models.TextField('Descripción del Producto', blank=False, null=False)
-    measuere_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE, verbose_name='Unidad de Medida', null = True)
-    category = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE, verbose_name='Categoría del Producto', null = True)
+    measure_unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE, verbose_name='Unidad de Medida', null = True)
+    category_product = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE, verbose_name='Categoría del Producto', null = True)
     image = models.ImageField('Imagen del Producto', upload_to='products/', blank=True, null=True)
     historical = HistoricalRecords() 
 
