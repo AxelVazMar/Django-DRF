@@ -18,16 +18,18 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ('created_date', 'modified_date', 'deleted_day')
+        exclude = ('created_date', 'modified_date', 'deleted_day', 'state')
     
     def to_representation(self, instance):
         """
-        Esta forma es para hacer override del método to represetation  y aquí podemos manipular la data sin tener que modificar el serializador principal
+        Esta forma es para hacer override del método to represetation  y 
+        aquí podemos manipular la data sin tener que modificar el serializador principal
         """
         return {
             'id': instance.id,
+            'name': instance.name,
             'description': instance.description,
-            'image': instance.image if instance.image != '' else 'No image', # <== esta es una ventaja que da este método, podemos agregar validaciones
+            'image': instance.image.url if instance.image and hasattr(instance.image, 'url') else 'No image',# <== esta es una ventaja que da este método, podemos agregar validaciones
             'measure_unit': instance.measure_unit.description,
             'category_product': instance.category_product.description,
 
