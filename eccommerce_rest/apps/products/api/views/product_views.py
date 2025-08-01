@@ -4,11 +4,12 @@ from rest_framework.response import Response
 from apps.base.api import GeneralListAPIView
 from apps.products.api.serializers.product_serializer import ProductSerializer
 
-class ProductListAPIView(GeneralListAPIView):
+class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
 
-class ProductCreateAPIView(generics.CreateAPIView):
-    serializer_class = ProductSerializer
+    # Podemos usar queryset como variable cuando con la consulta es suficiente
+    queryset = ProductSerializer.Meta.model.objects.filter(state = True)
+    # Usamos def get_queryset() cuando necesitamos algo más especifico en la consulta que no se puede hacer en una sola línea
 
     def post(self, request):
         """
