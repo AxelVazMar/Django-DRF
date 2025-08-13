@@ -22,15 +22,15 @@ class ProductSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         """
-        Esta forma es para hacer override del método to represetation  y 
+        Esta forma es para hacer override del método to_represetation()  y 
         aquí podemos manipular la data sin tener que modificar el serializador principal
         """
         return {
             'id': instance.id,
             'name': instance.name,
-            'description': instance.description,
-            'image': instance.image.url if instance.image and hasattr(instance.image, 'url') else 'No image',# <== esta es una ventaja que da este método, podemos agregar validaciones
-            'measure_unit': instance.measure_unit.description,
-            'category_product': instance.category_product.description,
+            'description': instance.description if instance.description else '',
+            'image': instance.image.url if instance.image else 'No image',# <== esta es una ventaja que da este método, podemos agregar validaciones
+            'measure_unit': instance.measure_unit.description if instance.measure_unit else '',
+            'category_product': instance.category_product.description if instance.category_product else '', # <== Validando que cuando la descripción sea vacía, lo ponga como "" string
 
         }
