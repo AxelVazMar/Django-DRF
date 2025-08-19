@@ -42,52 +42,8 @@ class UserListSerializer(serializers.ModelSerializer):
             "password":instance['password']
         }
 
-# class TestUserSerializer(serializers.Serializer):
-#     """
-#     This serializer is for making customs validations
-#     """
-
-#     name = serializers.CharField(max_length = 200)
-#     email = serializers.EmailField()
-
-#     # Los suiguientes métodos son pertenecientes a los serializers pero podemos sobreescrbirilos (como lo estamos haciendo) para que hagan cosas personalizadas
-
-#     def validate_name(self, value):
-
-#         # creating custom validation for name field
-#         if 'dev' in value:
-#             raise serializers.ValidationError("Error, a user with that name can't exists")
-#         return value
+class UserTokenSerializer(serializers.ModelSerializer):
     
-#     def validate_email(self, value):
-
-#         # creting a custom validation for email field
-#         if value == '':
-#             raise serializers.ValidationError('The user needs an email')
-        
-#         # if self.context['name'] in value:
-#         #     raise serializers.ValidationError('El email no puede contener el nombre')
-
-#         return value
-    
-#     def validate(self, data):
-#         """
-#         Method to validate the data of a user
-#         """
-    
-#         return data
-    
-#     def create(self, validated_data):
-#         """
-#         Method to create a user when the data is valid
-#         """
-#         return User.objects.create(**validated_data)
-    
-#     def update(self, instance, validated_data):
-#         instance.name = validated_data.get('name',instance.name)
-#         instance.email = validated_data.get('email',instance.email)
-#         instance.save() # <== este save es del modelo en este caso del modelo "User"
-#         return instance
-    
-#      def save(self):
-#          print(self) 
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'name', 'last_name')
