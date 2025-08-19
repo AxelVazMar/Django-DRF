@@ -35,6 +35,7 @@ LOCAL_APPS = [
 # Librerías externas
 THIRD_APPS = [
     'rest_framework',
+    'rest_framework.authtoken', # <== Generar tokens de autenticación
     'simple_history',
     'drf_yasg',
 ]
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
-ROOT_URLCONF = 'eccommerce_rest.urls'
+ROOT_URLCONF = 'ecommerce_rest.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'eccommerce_rest.wsgi.application'
+WSGI_APPLICATION = 'ecommerce_rest.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

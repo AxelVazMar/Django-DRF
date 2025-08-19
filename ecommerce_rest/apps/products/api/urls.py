@@ -1,6 +1,6 @@
 from django.urls import path
 
-from eccommerce_rest.apps.products.api.views.product_viewsets import (
+from ecommerce_rest.apps.products.api.views.product_viewsets import (
     ProductListCreateAPIView,
     ProductRetrieveUpdateDestroyAPIView
 )

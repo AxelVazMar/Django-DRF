@@ -1,5 +1,5 @@
 """
-WSGI config for eccommerce_rest project.
+WSGI config for ecommerce_rest project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eccommerce_rest.settings.local')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_rest.settings.local')
 
 application = get_wsgi_application()
