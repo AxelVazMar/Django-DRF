@@ -5,6 +5,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from apps.users.views import Login
+
 schema_view = get_schema_view(
     openapi.Info(
         title='API Documentation',
@@ -19,6 +21,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', Login.as_view(), name = 'Login'), # las '' representan la página por defecto, así que ahí estará nuestro endpoint de inicio de sesión
     path('admin/', admin.site.urls),
     path('user/', include('apps.users.api.urls')),
     # path('products/', include('apps.products.api.urls')) <== de esta manera products/ se enlaza a urls
