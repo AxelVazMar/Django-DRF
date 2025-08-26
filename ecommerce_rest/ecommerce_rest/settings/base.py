@@ -42,6 +42,8 @@ THIRD_APPS = [
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS # Aquí le estoy diciendo a django cuales son mis installed_apss
 
+TOKEN_EXPIRED_AFTER_SECONDS = 10
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
