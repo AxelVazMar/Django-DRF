@@ -3,9 +3,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from apps.base.api import GeneralListAPIView
+from apps.users.authentication_mixins import Authentication
 from apps.products.api.serializers.product_serializer import ProductSerializer
 
-class ProductViewSet(viewsets.ModelViewSet):
+class ProductViewSet(Authentication, viewsets.ModelViewSet):
     """
     Creando nuestro primer ViewSet
     para que funcione debemos enlazarlo a un "ROUTER"

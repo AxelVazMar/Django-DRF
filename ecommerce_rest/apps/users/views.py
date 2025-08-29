@@ -9,6 +9,25 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 
 from apps.users.api.serializers import UserTokenSerializer
+from apps.users.authentication import ExpiringTokenAuthentication
+
+class UserToken(APIView):
+    def get(self, request, *args, **kwargs):
+        username = request.GET.get('username')
+        auth = ExpiringTokenAuthentication()
+        try:
+            user_token = Token.objects.get(
+                user = UserTokenSerializer().Meta.model.objects.filter(username=username).first()
+            )
+            remaining_time = auth.expires_in(user_token)
+            return Response({
+                'token':user_token.key,
+                'remaining_token_time': str(remaining_time)
+            })
+        except:
+            return Response({
+                'error': 'Credenciales incorrectas'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class Login(ObtainAuthToken):
 
@@ -18,7 +37,9 @@ class Login(ObtainAuthToken):
             user = login_serializer.validated_data['user']
 
             if user.is_active:
-                token,created = Token.objects.get_or_create(user = user) # Diciendole que si el usuario está activo entonces asignale o creale un token. 'created' es un bool, si se creó un nuevo token es True sino es False
+                token,created = Token.objects.get_or_create(user = user) 
+                # Diciendole que si el usuario está activo entonces asignale o creale un token. 
+                # 'created' es un bool, si se creó un nuevo token es True sino es False
                 user_serializer = UserTokenSerializer(user)
                 if created: # si created es True
                     return Response({
@@ -27,13 +48,16 @@ class Login(ObtainAuthToken):
                         'message':'Inicio de sesión exitoso'
                     }, status=status.HTTP_201_CREATED)
                 else:
-                    all_sessions = Session.objects.filter(expire_date__gte = datetime.now()) # Estamos diciendo que obtenga todas las sesiones que están por expirar gte es "grather than or equal" ósea mayor o igual que
+                    all_sessions = Session.objects.filter(expire_date__gte = datetime.now()) 
+                    # Estamos diciendo que obtenga todas las sesiones que están por expirar 
+                    # gte es "grather than or equal" ósea mayor o igual que
                     if all_sessions.exists():
                         for session in all_sessions:
                             session_data = session.get_decoded()
                             if user.id == int(session_data.get('_auth_user_id')):
                                 session.delete()
-                                # Si un usuario ya tiene una sesión activa y vuelve a iniciar sesión en otro lugar, se le borrará la sesión
+                                # Si un usuario ya tiene una sesión activa y vuelve a iniciar sesión en otro lugar, 
+                                # se le borrará la sesión
                     token.delete()
                     token = Token.objects.create(user = user) 
                     return Response({
@@ -46,7 +70,6 @@ class Login(ObtainAuthToken):
         else:
             return Response({'error':'nombre de usuario o contraseña incorrectos'}, status=status.HTTP_400_BAD_REQUEST)
         
-        return Response({'message':'Hola desde response'}, status=status.HTTP_200_OK)
 
 class Logout(APIView):
 

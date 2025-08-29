@@ -42,7 +42,7 @@ THIRD_APPS = [
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS # Aquí le estoy diciendo a django cuales son mis installed_apss
 
-TOKEN_EXPIRED_AFTER_SECONDS = 10
+TOKEN_EXPIRED_AFTER_SECONDS = 900 # lo normal son 15 minutos, que son 900 segs aprox
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
