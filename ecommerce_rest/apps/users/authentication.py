@@ -20,13 +20,13 @@ class ExpiringTokenAuthentication(TokenAuthentication):
 
     def is_token_expired(self, token):
         """
-        Ssber si el token ha expirado
+        Saber si el token ha expirado
         """
         return self.expires_in(token) < timedelta(seconds = 0)
 
     def token_expire_handler(self, token):
         """
-        Inicia la ejecución en cadema de is_token_expired()
+        Inicia la ejecución en cadena de is_token_expired()
         """
         is_expire = self.is_token_expired(token)
         if is_expire:
