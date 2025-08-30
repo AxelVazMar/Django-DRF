@@ -1,7 +1,9 @@
 # Django-DRF
 Django REST Framework - Ecommerce API
 
-Este proyecto es una API de ejemplo para un sistema de ecommerce desarrollada con Django y Django REST Framework. Incluye autenticación de usuarios, gestión de productos, categorías, unidades de medida e indicadores.
+Este proyecto es una API de ejemplo para un sistema de ecommerce desarrollada con Django y Django REST Framework. 
+
+Incluye autenticación de usuarios, gestión de productos, categorías, unidades de medida e indicadores.
 
 El objetivo es servir como base para aprender y construir aplicaciones RESTful modernas con Django.
 
