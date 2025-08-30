@@ -37,6 +37,6 @@ Clona el repositorio.
 
 Instala las dependencias con pip install `-r requirements.txt` .
 
-Ejecuta las migraciones y el servidor con python manage.py migrate y python manage.py runserver.
+Ejecuta las migraciones y el servidor con python `manage.py migrate` y `python manage.py runserver`.
 
 Accede al panel de administración y a la documentación de la API.
