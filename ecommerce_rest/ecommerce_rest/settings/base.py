@@ -34,6 +34,7 @@ LOCAL_APPS = [
 
 # Librerías externas
 THIRD_APPS = [
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken', # <== Generar tokens de autenticación
     'simple_history',
@@ -45,6 +46,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS # Aquí le estoy diciendo a
 TOKEN_EXPIRED_AFTER_SECONDS = 900 # lo normal son 15 minutos, que son 900 segs aprox
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # <== Esto es para que funcione el cors y debe ir lo más alto posible
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", # Esto es para que el frontend pueda hacer peticiones al backend
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.localhost:3000$",
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
 ]
 
 ROOT_URLCONF = 'ecommerce_rest.urls'
