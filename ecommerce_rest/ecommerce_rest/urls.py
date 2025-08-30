@@ -22,6 +22,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', Login.as_view(), name = 'Login'), # las '' representan la página por defecto, así que ahí estará nuestro endpoint de inicio de sesión
+    path('logout/', Logout.as_view(), name = 'Logout'),
     path('admin/', admin.site.urls),
     path('user/', include('apps.users.api.urls')),
     path('refresh-token/', UserToken.as_view(), name='refresh_token'),
@@ -30,5 +31,4 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('logout/', Logout.as_view(), name = 'Logout')
 ]
